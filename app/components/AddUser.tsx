@@ -15,7 +15,8 @@ export default function AddUser() {
         await addUser(name, "beer")
         setName("")
         toast.success("Gebruiker toegevoegd")
-      } catch (error) {
+      } catch (err) {
+        console.error("Error adding user:", err)
         toast.error("Fout bij het toevoegen van gebruiker")
       }
     }
@@ -28,7 +29,7 @@ export default function AddUser() {
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Gebruikersnaam"
-        className="flex-grow px-4 py-3 rounded-lg text-black text-lg h-12 "
+        className="flex-grow px-4 py-3 rounded-lg text-black text-lg h-12 bg-green-100"
       />
       <Button type="submit" className="btn btn-success h-12 bg-green-500 hover:bg-green-600 text-white">
         Voeg Gebruiker Toe

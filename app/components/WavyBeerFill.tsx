@@ -6,7 +6,6 @@ import { createNoise3D } from "simplex-noise"
 
 interface WavyBeerFillProps {
   width: string
-  isComplete: boolean
   waveColor: string
 }
 
@@ -18,7 +17,7 @@ interface Particle {
   opacity: number
 }
 
-const WavyBeerFill: React.FC<WavyBeerFillProps> = ({ width, isComplete, waveColor }) => {
+const WavyBeerFill: React.FC<WavyBeerFillProps> = ({ width, waveColor }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const noise = createNoise3D()
 

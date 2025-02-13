@@ -41,9 +41,9 @@ export default function ResetSlokken() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Weet je zeker dat je de ey's wil resetten?</AlertDialogTitle>
+          <AlertDialogTitle>Weet je zeker dat je de ey&apos;s wil resetten?</AlertDialogTitle>
           <AlertDialogDescription>
-            Deze actie kan niet ongedaan worden gemaakt. Alle ey's en slokken zullen worden gereset naar 0.
+            Deze actie kan niet ongedaan worden gemaakt. Alle ey&apos;s en slokken zullen worden gereset naar 0.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

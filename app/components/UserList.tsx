@@ -22,7 +22,6 @@ interface User {
 export default function UserList() {
   const [users, setUsers] = useState<User[]>([])
   const [totalEys, setTotalEys] = useState(0)
-  const [editingUser, setEditingUser] = useState<string | null>(null)
 
   useEffect(() => {
     const unsubscribeUsers = onSnapshot(collection(db, "Config", "users", "users"), (snapshot) => {
@@ -52,7 +51,8 @@ export default function UserList() {
     try {
       await addSlokToUser(userId)
       toast.success("Slok toegevoegd aan gebruiker")
-    } catch (error) {
+    } catch (err) {
+      console.error("Error adding slok to user:", err)
       toast.error("Kan niet meer slokken toevoegen dan het totaal")
     }
   }
@@ -61,7 +61,8 @@ export default function UserList() {
     try {
       await removeSlokFromUser(userId)
       toast.success("Slok verwijderd van gebruiker")
-    } catch (error) {
+    } catch (err) {
+      console.error("Error removing slok from user:", err)
       toast.error("Kan geen slokken verwijderen als de gebruiker er geen heeft")
     }
   }
@@ -70,7 +71,8 @@ export default function UserList() {
     try {
       await deleteUser(userId)
       toast.success("Gebruiker verwijderd")
-    } catch (error) {
+    } catch (err) {
+      console.error("Error deleting user:", err)
       toast.error("Fout bij het verwijderen van de gebruiker")
     }
   }
@@ -81,8 +83,8 @@ export default function UserList() {
         drinkType: newDrinkType,
       })
       toast.success("Drankje gewijzigd")
-      setEditingUser(null)
-    } catch (error) {
+    } catch (err) {
+      console.error("Error changing drink type:", err)
       toast.error("Fout bij het wijzigen van het drankje")
     }
   }
@@ -166,11 +168,7 @@ export default function UserList() {
               </div>
             </div>
             <div className="absolute bottom-0 left-0 h-6 w-full glass-background overflow-hidden">
-              <WavyBeerFill
-                width={getProgressBarWidth(user.totalSlokken)}
-                isComplete={user.totalSlokken >= totalEys}
-                waveColor={getWaveColor(user.drinkType)}
-              />
+              <WavyBeerFill width={getProgressBarWidth(user.totalSlokken)} waveColor={getWaveColor(user.drinkType)} />
             </div>
           </li>
         ))}
