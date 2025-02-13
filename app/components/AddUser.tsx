@@ -29,7 +29,7 @@ export default function AddUser() {
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Gebruikersnaam"
-        className="flex-grow px-4 py-3 rounded-lg text-black text-lg h-12 bg-green-100"
+        className="flex-grow px-4 py-3 rounded-lg text-black text-lg h-12"
       />
       <Button type="submit" className="btn btn-success h-12 bg-green-500 hover:bg-green-600 text-white">
         Voeg Gebruiker Toe
