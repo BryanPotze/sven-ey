@@ -1,7 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { addUser } from "@/lib/firebaseUtils"
+import { addUser } from "../../lib/firebaseUtils"
+import { toast } from "react-hot-toast"
+import { Button } from "@/components/ui/button"
 
 export default function AddUser() {
   const [name, setName] = useState("")
@@ -9,23 +11,28 @@ export default function AddUser() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (name) {
-      await addUser(name)
-      setName("")
+      try {
+        await addUser(name, "beer")
+        setName("")
+        toast.success("Gebruiker toegevoegd")
+      } catch (error) {
+        toast.error("Fout bij het toevoegen van gebruiker")
+      }
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 flex flex-col sm:flex-row gap-2">
+    <form onSubmit={handleSubmit} className="mt-6 flex gap-4">
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Gebruikersnaam"
-        className="flex-grow px-4 py-2 border rounded text-black"
+        className="flex-grow px-4 py-3 rounded-lg text-black text-lg h-12 "
       />
-      <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors">
+      <Button type="submit" className="btn btn-success h-12 bg-green-500 hover:bg-green-600 text-white">
         Voeg Gebruiker Toe
-      </button>
+      </Button>
     </form>
   )
 }

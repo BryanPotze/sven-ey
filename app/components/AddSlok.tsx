@@ -1,41 +1,60 @@
 "use client"
 
 import { useState } from "react"
-import { db } from "@/lib/firebase"
-import { doc, runTransaction } from "firebase/firestore"
+import { addSlokToTotal, removeSlokFromTotal } from "../../lib/firebaseUtils"
+import { toast } from "react-hot-toast"
+import { Beer, BeerOff } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export default function AddSlok() {
   const [isAdding, setIsAdding] = useState(false)
+  const [isRemoving, setIsRemoving] = useState(false)
 
-  const addSlok = async () => {
+  const addEy = async () => {
     setIsAdding(true)
     try {
-      await runTransaction(db, async (transaction) => {
-        const counterRef = doc(db, "Config", "counter")
-        const counterDoc = await transaction.get(counterRef)
-
-        if (!counterDoc.exists()) {
-          throw "Document does not exist!"
-        }
-
-        const newTotal = (counterDoc.data().totalSlokken || 0) + 1
-        transaction.update(counterRef, { totalSlokken: newTotal })
-      })
+      await addSlokToTotal()
+      toast.success("Ey toegevoegd")
     } catch (e) {
-      console.error("Error adding slok: ", e)
+      console.error("Error adding ey: ", e)
+      toast.error("Fout bij het toevoegen van ey")
     } finally {
       setIsAdding(false)
     }
   }
 
+  const removeEy = async () => {
+    setIsRemoving(true)
+    try {
+      await removeSlokFromTotal()
+      toast.success("Ey verwijderd")
+    } catch (e) {
+      console.error("Error removing ey: ", e)
+      toast.error("Fout bij het verwijderen van ey")
+    } finally {
+      setIsRemoving(false)
+    }
+  }
+
   return (
-    <button
-      onClick={addSlok}
-      className="w-full sm:w-auto px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors disabled:bg-gray-400"
-      disabled={isAdding}
-    >
-      {isAdding ? "Adding..." : "Ey"}
-    </button>
+    <div className="flex space-x-4 w-full">
+      <Button
+        onClick={removeEy}
+        className="flex-1 h-12 flex items-center justify-center btn btn-danger"
+        disabled={isAdding || isRemoving}
+      >
+        <BeerOff className="mr-2" />
+        {isRemoving ? "Verwijderen..." : "Ey verwijderen"}
+      </Button>
+      <Button
+        onClick={addEy}
+        className="flex-1 h-12 flex items-center justify-center btn btn-success"
+        disabled={isAdding || isRemoving}
+      >
+        <Beer className="mr-2" />
+        {isAdding ? "Toevoegen..." : "Ey toevoegen"}
+      </Button>
+    </div>
   )
 }
 

@@ -14,17 +14,107 @@ body {
 }
 
 .bg-image {
-  background-image: url("/background.png");
-  background-size: contain;
+  background-image: url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-9pf1YO4JzT4kEdEtmfRpWhN7vCRqJ6.png");
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
 
-@media (max-width: 640px) {
-  .bg-image {
-    background-size: 100% auto;
-    background-position: top center;
+.glass-background {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 0;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.1px);
+  -webkit-backdrop-filter: blur(4.1px);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.5s ease-out;
+}
+
+.btn {
+  @apply px-4 py-2 rounded-lg text-base font-semibold transition-all duration-300 ease-in-out h-12;
+}
+
+.btn-primary {
+  @apply bg-blue-500 text-white hover:bg-blue-600 active:bg-blue-700;
+}
+
+.btn-secondary {
+  @apply bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-700;
+}
+
+.btn-danger {
+  @apply bg-red-500 text-white hover:bg-red-600 active:bg-red-700;
+}
+
+.btn-success {
+  @apply bg-green-500 text-white hover:bg-green-600 active:bg-green-700;
+}
+
+.card {
+  @apply bg-white/10 backdrop-blur-sm rounded-lg p-4 shadow-md transition-all duration-300 ease-in-out relative;
+}
+
+.text-green-500 {
+  color: #10b981;
+}
+
+.text-red-500 {
+  color: #ef4444;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes popoverEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.popover-content {
+  animation: popoverEntrance 0.2s ease-out;
 }
 
