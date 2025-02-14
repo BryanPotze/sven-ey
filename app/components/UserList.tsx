@@ -123,7 +123,7 @@ export default function UserList() {
 
   return (
     <div className="w-full animate-slideIn">
-      <Toaster position="top-right" />
+      <Toaster position="top-center" />
       <h2 className="text-xl sm:text-2xl font-bold mb-4 text-white">Gebruikers</h2>
       <ul className="space-y-4">
         {users.map((user) => (
@@ -138,10 +138,10 @@ export default function UserList() {
                 <span className={`text-base sm:text-lg font-semibold ${getStatusColor(user.totalSlokken)}`}>
                   {user.name}: <CountingNumber value={user.totalSlokken} duration={1500} />
                   <span className="hidden sm:inline"> slokken genomen</span>
-                  {getStatusIcon(user.totalSlokken)}
                 </span>
               </div>
               <div className="flex items-center space-x-1 sm:space-x-2">
+                {getStatusIcon(user.totalSlokken)}
                 <Button
                   onClick={() => handleRemoveSlokFromUser(user.id)}
                   className="text-red-500 hover:text-white hover:bg-red-500 transition-all duration-300 transform hover:scale-110"

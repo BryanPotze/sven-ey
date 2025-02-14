@@ -41,7 +41,7 @@ const WavyBeerFill: React.FC<WavyBeerFillProps> = ({ width, waveColor }) => {
     })
 
     const createParticles = () => {
-      const particleCount = Math.floor(canvas.width / 10)
+      const particleCount = Math.floor(canvas.width / (window.innerWidth < 640 ? 20 : 10))
       for (let i = 0; i < particleCount; i++) {
         particles.push(createParticle(Math.random() * canvas.width, canvas.height - Math.random() * 5))
       }
