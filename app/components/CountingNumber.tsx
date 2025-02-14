@@ -7,7 +7,7 @@ interface CountingNumberProps {
   duration?: number
 }
 
-export default function CountingNumber({ value, duration = 1000 }: CountingNumberProps) {
+export default function CountingNumber({ value, duration = 500 }: CountingNumberProps) {
   const [displayValue, setDisplayValue] = useState(0)
   const previousValue = useRef(0)
   const isInitialRender = useRef(true)
@@ -20,7 +20,7 @@ export default function CountingNumber({ value, duration = 1000 }: CountingNumbe
     const animateCount = (timestamp: number) => {
       if (!startTime) startTime = timestamp
       const progress = Math.min((timestamp - startTime) / duration, 1)
-      const currentValue = Math.floor(startValue + progress * (endValue - startValue))
+      const currentValue = Math.round(startValue + progress * (endValue - startValue))
       setDisplayValue(currentValue)
 
       if (progress < 1) {

@@ -61,22 +61,11 @@ export default function UserList() {
   }, [])
 
   const showGroupedToast = useCallback(
-    (userId: string, action: "add" | "remove") => {
+    (userId: string) => {
       const newCounter = { ...slokCounter, [userId]: (slokCounter[userId] || 0) + 1 }
       setSlokCounter(newCounter)
 
-      const count = newCounter[userId]
-      const message =
-        action === "add"
-          ? `${count} slok${count > 1 ? "ken" : ""} toegevoegd`
-          : `${count} slok${count > 1 ? "ken" : ""} verwijderd`
-
-      toast.success(message, {
-        id: `slok-${userId}-${action}`,
-        duration: 2000,
-      })
-
-      // Reset the counter after the toast disappears
+      // Reset the counter after a delay
       setTimeout(() => {
         setSlokCounter((prev) => ({ ...prev, [userId]: 0 }))
       }, 2000)
@@ -87,7 +76,7 @@ export default function UserList() {
   const handleAddSlokToUser = async (userId: string) => {
     try {
       await addSlokToUser(userId)
-      showGroupedToast(userId, "add")
+      showGroupedToast(userId)
     } catch (err) {
       console.error("Error adding slok to user:", err)
       toast.error("Kan niet meer slokken toevoegen dan het totaal")
@@ -97,7 +86,7 @@ export default function UserList() {
   const handleRemoveSlokFromUser = async (userId: string) => {
     try {
       await removeSlokFromUser(userId)
-      showGroupedToast(userId, "remove")
+      showGroupedToast(userId)
     } catch (err) {
       console.error("Error removing slok from user:", err)
       toast.error("Kan geen slokken verwijderen als de gebruiker er geen heeft")
@@ -177,7 +166,7 @@ export default function UserList() {
                   onSelect={(type) => handleChangeDrinkType(user.id, type)}
                 />
                 <span className={`text-base sm:text-lg font-semibold ${getStatusColor(user.totalSlokken)} truncate`}>
-                  {user.name}: <CountingNumber value={user.totalSlokken} duration={1500} />{" "}
+                  {user.name}: <CountingNumber value={user.totalSlokken} duration={500} />{" "}
                   <span className="hidden sm:inline">slokken</span>
                 </span>
               </div>
