@@ -6,7 +6,7 @@ import { collection, onSnapshot, doc, updateDoc } from "firebase/firestore"
 import AddUser from "./AddUser"
 import { addSlokToUser, removeSlokFromUser, deleteUser } from "../../lib/firebaseUtils"
 import { toast, Toaster } from "react-hot-toast"
-import { CheckCircle, XCircle, PlusCircle, MinusCircle, Trash2 } from "lucide-react"
+import { PlusCircle, MinusCircle, Trash2 } from "lucide-react"
 import CountingNumber from "./CountingNumber"
 import WavyBeerFill from "./WavyBeerFill"
 import { Button } from "@/components/ui/button"
@@ -93,13 +93,6 @@ export default function UserList() {
     return userSlokken >= totalEys ? "text-green-500" : "text-red-500"
   }
 
-  const getStatusIcon = (userSlokken: number) => {
-    return userSlokken >= totalEys ? (
-      <CheckCircle className="inline-block ml-2 text-green-500" />
-    ) : (
-      <XCircle className="inline-block ml-2 text-red-500" />
-    )
-  }
 
   const getProgressBarWidth = (userSlokken: number) => {
     const percentage = (userSlokken / totalEys) * 100
@@ -128,41 +121,34 @@ export default function UserList() {
       <ul className="space-y-4">
         {users.map((user) => (
           <li key={user.id} className="card hover:shadow-lg transition-shadow duration-300 overflow-hidden bg-white">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 relative z-10 p-3 sm:p-4">
-              <div className="flex items-center space-x-2 mb-2 sm:mb-0">
+            <div className="flex items-center gap-2 relative z-10 p-2 pb-8">
+              <div className="flex items-center gap-2 flex-1 min-w-0">
                 <DrinkIcon
                   drinkType={user.drinkType}
                   className={getStatusColor(user.totalSlokken)}
                   onSelect={(type) => handleChangeDrinkType(user.id, type)}
                 />
-                <span className={`text-base sm:text-lg font-semibold ${getStatusColor(user.totalSlokken)}`}>
-                  {user.name}: <CountingNumber value={user.totalSlokken} duration={1500} />
-                  <span className="hidden sm:inline"> slokken genomen</span>
+                <span className={`text-base sm:text-lg font-semibold ${getStatusColor(user.totalSlokken)} truncate`}>
+                  {user.name}: <CountingNumber value={user.totalSlokken} duration={1500} />{" "}
+                  <span className="hidden sm:inline">slokken</span>
                 </span>
               </div>
-              <div className="flex items-center space-x-1 sm:space-x-2">
-                {getStatusIcon(user.totalSlokken)}
+              <div className="flex items-center gap-0.5">
                 <Button
                   onClick={() => handleRemoveSlokFromUser(user.id)}
-                  className="text-red-500 hover:text-white hover:bg-red-500 transition-all duration-300 transform hover:scale-110"
-                  variant="ghost"
-                  size="sm"
+                  className="text-red-500 hover:text-red-600 transition-transform duration-200 transform hover:scale-125 p-1"
                 >
                   <MinusCircle className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
                 <Button
                   onClick={() => handleAddSlokToUser(user.id)}
-                  className="text-green-500 hover:text-white hover:bg-green-500 transition-all duration-300 transform hover:scale-110"
-                  variant="ghost"
-                  size="sm"
+                  className="text-green-500 hover:text-green-600 transition-transform duration-200 transform hover:scale-125 p-1"
                 >
                   <PlusCircle className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
                 <Button
                   onClick={() => handleDeleteUser(user.id)}
-                  className="text-gray-500 hover:text-white hover:bg-gray-500 transition-all duration-300 transform hover:scale-110"
-                  variant="ghost"
-                  size="sm"
+                  className="text-gray-500 hover:text-gray-600 transition-transform duration-200 transform hover:scale-125 p-1"
                 >
                   <Trash2 className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>

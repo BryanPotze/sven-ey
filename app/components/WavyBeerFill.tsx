@@ -66,16 +66,19 @@ const WavyBeerFill: React.FC<WavyBeerFillProps> = ({ width, waveColor }) => {
       beerGradient.addColorStop(1, waveColor.replace("0.9", "0.8"))
 
       ctx.fillStyle = beerGradient
-      ctx.beginPath()
-      ctx.moveTo(0, canvas.height)
-      wavePoints.forEach((point) => ctx.lineTo(point[0], point[1]))
-      ctx.lineTo(canvas.width, canvas.height)
-      ctx.closePath()
-      ctx.fill()
+      if (wavePoints.length > 0) {
+        ctx.beginPath()
+        ctx.moveTo(0, canvas.height)
+        wavePoints.forEach((point) => ctx.lineTo(point[0], point[1]))
+        ctx.lineTo(canvas.width, canvas.height)
+        ctx.closePath()
+        ctx.fill()
+      }
 
       // Draw particles
       particles.forEach((particle, index) => {
-        const waveY = wavePoints[Math.floor(particle.x / 5)][1]
+        const wavePointIndex = Math.floor(particle.x / 5)
+        const waveY = wavePoints[wavePointIndex] ? wavePoints[wavePointIndex][1] : canvas.height
 
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
@@ -90,7 +93,7 @@ const WavyBeerFill: React.FC<WavyBeerFillProps> = ({ width, waveColor }) => {
         }
 
         // Reset particle if it's fully transparent or falls below the canvas
-        if (particle.opacity <= 0 || particle.y > canvas.height) {
+        if (particle.opacity <= 0 || particle.y > canvas.height || wavePointIndex >= wavePoints.length) {
           particles[index] = createParticle(Math.random() * canvas.width, canvas.height - Math.random() * 5)
         }
       })
