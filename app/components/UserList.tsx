@@ -124,30 +124,31 @@ export default function UserList() {
   return (
     <div className="w-full animate-slideIn">
       <Toaster position="top-right" />
-      <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">Gebruikers</h2>
+      <h2 className="text-xl sm:text-2xl font-bold mb-4 text-white">Gebruikers</h2>
       <ul className="space-y-4">
         {users.map((user) => (
           <li key={user.id} className="card hover:shadow-lg transition-shadow duration-300 overflow-hidden bg-white">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 relative z-10 mb-6">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 relative z-10 p-3 sm:p-4">
               <div className="flex items-center space-x-2 mb-2 sm:mb-0">
                 <DrinkIcon
                   drinkType={user.drinkType}
                   className={getStatusColor(user.totalSlokken)}
                   onSelect={(type) => handleChangeDrinkType(user.id, type)}
                 />
-                <span className={`text-lg font-semibold ${getStatusColor(user.totalSlokken)}`}>
-                  {user.name}: <CountingNumber value={user.totalSlokken} duration={1500} /> slokken genomen
+                <span className={`text-base sm:text-lg font-semibold ${getStatusColor(user.totalSlokken)}`}>
+                  {user.name}: <CountingNumber value={user.totalSlokken} duration={1500} />
+                  <span className="hidden sm:inline"> slokken genomen</span>
                   {getStatusIcon(user.totalSlokken)}
                 </span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1 sm:space-x-2">
                 <Button
                   onClick={() => handleRemoveSlokFromUser(user.id)}
                   className="text-red-500 hover:text-white hover:bg-red-500 transition-all duration-300 transform hover:scale-110"
                   variant="ghost"
                   size="sm"
                 >
-                  <MinusCircle className="h-5 w-5" />
+                  <MinusCircle className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
                 <Button
                   onClick={() => handleAddSlokToUser(user.id)}
@@ -155,7 +156,7 @@ export default function UserList() {
                   variant="ghost"
                   size="sm"
                 >
-                  <PlusCircle className="h-5 w-5" />
+                  <PlusCircle className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
                 <Button
                   onClick={() => handleDeleteUser(user.id)}
@@ -163,11 +164,11 @@ export default function UserList() {
                   variant="ghost"
                   size="sm"
                 >
-                  <Trash2 className="h-5 w-5" />
+                  <Trash2 className="h-4 w-4 sm:h-5 sm:w-5" />
                 </Button>
               </div>
             </div>
-            <div className="absolute bottom-0 left-0 h-6 w-full glass-background overflow-hidden">
+            <div className="absolute bottom-0 left-0 h-4 sm:h-6 w-full glass-background overflow-hidden">
               <WavyBeerFill width={getProgressBarWidth(user.totalSlokken)} waveColor={getWaveColor(user.drinkType)} />
             </div>
           </li>

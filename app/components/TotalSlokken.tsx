@@ -26,9 +26,9 @@ export default function TotalSlokken() {
   }
 
   return (
-    <div className="text-3xl sm:text-4xl font-bold mb-8 text-center animate-fadeIn flex items-center justify-center">
-      <Beer className="text-amber-500 h-8 w-8 mr-2" />
-      Totaal ey&apos;s: <CountingNumber value={totalEys} duration={1500} />
+    <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-center animate-fadeIn flex items-center justify-center">
+      <Beer className="text-amber-500 h-6 w-6 sm:h-8 sm:w-8 mr-2" />
+      <span className="hidden sm:inline">Totaal</span> ey&apos;s: <CountingNumber value={totalEys} duration={1500} />
     </div>
   )
 }

@@ -37,22 +37,24 @@ export default function AddSlok() {
   }
 
   return (
-    <div className="flex space-x-4 w-full">
+    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full">
       <Button
         onClick={removeEy}
         className="flex-1 h-12 flex items-center justify-center btn btn-danger"
         disabled={isAdding || isRemoving}
       >
-        <BeerOff className="mr-2" />
-        {isRemoving ? "Verwijderen..." : "Ey verwijderen"}
+        <BeerOff className="mr-2 h-5 w-5" />
+        <span className="sm:hidden">Verwijder</span>
+        <span className="hidden sm:inline">{isRemoving ? "Verwijderen..." : "Ey verwijderen"}</span>
       </Button>
       <Button
         onClick={addEy}
         className="flex-1 h-12 flex items-center justify-center btn btn-success"
         disabled={isAdding || isRemoving}
       >
-        <Beer className="mr-2" />
-        {isAdding ? "Toevoegen..." : "Ey toevoegen"}
+        <Beer className="mr-2 h-5 w-5" />
+        <span className="sm:hidden">Voeg toe</span>
+        <span className="hidden sm:inline">{isAdding ? "Toevoegen..." : "Ey toevoegen"}</span>
       </Button>
     </div>
   )

@@ -23,16 +23,17 @@ export default function AddUser() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6 flex gap-4">
+    <form onSubmit={handleSubmit} className="mt-6 flex flex-col sm:flex-row gap-2 sm:gap-4">
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Gebruikersnaam"
-        className="flex-grow px-4 py-3 rounded-lg text-black text-lg h-12"
+        className="flex-grow px-4 py-3 rounded-lg text-black text-base sm:text-lg h-10 sm:h-12 bg-green-100"
       />
-      <Button type="submit" className="btn btn-success h-12 bg-green-500 hover:bg-green-600 text-white">
-        Voeg Gebruiker Toe
+      <Button type="submit" className="btn btn-success h-10 sm:h-12 bg-green-500 hover:bg-green-600 text-white">
+        <span className="sm:hidden">Toevoegen</span>
+        <span className="hidden sm:inline">Voeg Gebruiker Toe</span>
       </Button>
     </form>
   )
